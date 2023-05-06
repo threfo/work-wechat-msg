@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Work Wechat Send Msg
-        uses: threfo/work-wechat-msg@master
+        uses: threfo/work-wechat-msg@main
         with: 
           botKey: ${{ secrets.WORK_WECHAT_GITHUB_ROBOT_KEY }}
           content: github action build test
