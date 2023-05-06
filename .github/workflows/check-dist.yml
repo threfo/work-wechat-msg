@@ -1,0 +1,58 @@
+# `dist/index.js` is a special file in Actions.
+# When you reference an action with `uses:` in a workflow,
+# `index.js` is the code that will run.
+# For our project, we generate this file through a build process
+# from other source files.
+# We need to make sure the checked-in `index.js` actually matches what we expect it to be.
+name: Rebuild dist/index.js
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - 'dist/**'
+  pull_request:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - 'dist/**'
+
+jobs:
+  check-dist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Node.js 12.x
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: 12.x
+  
+      - name: Install dependencies
+        run: npm install
+
+      - name: Push dist/index.js file
+        run: |
+          npm run build
+          npm run package
+
+          user_name=`git log -1 --pretty=format:'%an'`
+          echo "user_name: ${user_name}"
+          user_email=`git log -1 --pretty=format:'%ae'`
+          echo "user_email: ${user_email}"
+
+          git config user.name ${user_name}
+          git config user.email ${user_email}
+          
+          git add -f dist/
+          git commit -m "Rebuild dist/index.js"
+          git push origin master --force
+
+     
+
+
+    

@@ -1,0 +1,18 @@
+name: 'Test'
+
+on: # rebuild any PRs and main branch changes
+  workflow_run:
+    workflows: [Rebuild dist/index.js]
+    types:
+      - completed
+   
+jobs:
+  test: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - name: Work Wechat Send Msg
+        uses: 2bitlab/work-wechat-msg@master
+        with: 
+          botKey: ${{ secrets.WORK_WECHAT_GITHUB_ROBOT_KEY }}
+          content: github action build test
+

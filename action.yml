@@ -1,0 +1,23 @@
+name: 'Work Wechat Send Message'
+description: '企业微信机器人发消息'
+author: 'Thomas'
+branding:
+  icon: 'bell'
+  color: 'green'
+inputs:
+  botKey:
+    required: true
+    description: '机器人的key'
+  content:
+    required: false
+    description: '发送的内容'
+  msgtype:
+    required: false
+    description: '消息类型'
+    default: 'text'
+  mentionedMobileList:
+    required: false
+    description: '通知谁'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
