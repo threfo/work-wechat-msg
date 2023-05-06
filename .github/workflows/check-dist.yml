@@ -50,7 +50,7 @@ jobs:
           
           git add -f dist/
           git commit -m "Rebuild dist/index.js"
-          git push origin master --force
+          git push origin main --force
 
      
 
